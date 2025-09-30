@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY WORK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fefefe;
+            color: #2a2a2a;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .container.work-view {
+            justify-content: flex-start;
+            padding-top: 180px;
+        }
+
+        /* Name in top left */
+        .name {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: #2a2a2a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Navigation buttons in top right */
+        .nav-buttons {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-button {
+            font-family: 'IBM Plex Mono';
+            font-size: 20px;
+            font-weight: 400;
+            color: #e91e63;
+            text-decoration: none;
+            letter-spacing: 3.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            transform: scale(1);
+            text-transform: uppercase;
+        }
+
+        .nav-button:hover {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Center content - toggle switch */
+        .center-content {
+            text-align: center;
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 40px;
+        }
+
+        .center-content.work-mode {
+            transform: translateY(-120px);
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            background: #f0f0f0;
+            border-radius: 50px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .toggle-option {
+            padding: 12px 24px;
+            border-radius: 46px;
+            font-family: 'IBM Plex Mono';
+            font-size: 20px;
+            font-weight: 400;
+            color: #666;
+            text-transform: uppercase;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
+            min-width: 120px;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: white;
+            border-radius: 46px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .toggle-switch.photography .toggle-slider {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+
+        .toggle-switch.design .toggle-slider {
+            transform: translateX(100%);
+            opacity: 1;
+        }
+
+        .toggle-option.active {
+            color: #e20071;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                top: 20px;
+                left: 20px;
+                font-size: 14px;
+            }
+
+            .nav-buttons {
+                top: 20px;
+                right: 20px;
+                gap: 20px;
+            }
+
+            .nav-button {
+                font-size: 14px;
+            }
+
+            .center-content {
+                padding: 0 20px;
+            }
+
+            .container.work-view {
+                padding-top: 140px;
+            }
+
+            .center-content.work-mode {
+                transform: translateY(-60px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="name">केशव सेठी | Keshav Sethi</div>
+        
+        <div class="nav-buttons">
+            <a href="about.html" class="nav-button">About</a>
+            <a href="#" class="nav-button" data-action="work">Work</a>
+        </div>
+
+        <div class="center-content" id="centerContent">
+            <div class="toggle-container">
+                <div class="toggle-switch" id="toggleSwitch">
+                    <div class="toggle-slider"></div>
+                    <div class="toggle-option" data-section="photography">Photo</div>
+                    <div class="toggle-option" data-section="design">Design</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const centerContent = document.getElementById('centerContent');
+        const toggleSwitch = document.getElementById('toggleSwitch');
+        const toggleOptions = document.querySelectorAll('.toggle-option');
+        const workButton = document.querySelector('[data-action="work"]');
+
+        let isWorkMode = false;
+        let isNeutralState = false;
+
+        // Toggle switch functionality
+        toggleSwitch.addEventListener('click', (e) => {
+            if (e.target.classList.contains('toggle-option')) {
+                const targetSection = e.target.getAttribute('data-section');
+                
+                // Redirect to appropriate page
+                if (targetSection === 'photography') {
+                    window.location.href = 'photography.html';
+                } else if (targetSection === 'design') {
+                    window.location.href = 'design.html';
+                }
+            }
+        });
+
+        // Handle "Work" button click
+        workButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (!isWorkMode) {
+                enterWorkMode();
+                setNeutralState();
+            } else if (!isNeutralState) {
+                setNeutralState();
+            }
+        });
+
+        function enterWorkMode() {
+            isWorkMode = true;
+            container.classList.add('work-view');
+            centerContent.classList.add('work-mode');
+        }
+
+        function setNeutralState() {
+            isNeutralState = true;
+            toggleOptions.forEach(option => option.classList.remove('active'));
+            toggleSwitch.classList.remove('photography', 'design');
+            
+            if (!isWorkMode) {
+                enterWorkMode();
+            }
+        }
+    </script>
+</body>
+</html>

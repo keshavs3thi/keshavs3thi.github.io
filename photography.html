@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography - MY WORK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fefefe;
+            color: #2a2a2a;
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 80px 40px 40px;
+        }
+
+        /* Name in top left */
+        .name {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: #2a2a2a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 1000;
+        }
+
+        /* Navigation buttons in top right */
+        .nav-buttons {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            gap: 40px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            font-family: 'IBM Plex Mono';
+            font-size: 20px;
+            font-weight: 400;
+            color: #e91e63;
+            text-decoration: none;
+            letter-spacing: 3.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            transform: scale(1);
+            text-transform: uppercase;
+        }
+
+        .nav-button:hover {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+
+        .section-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 50px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        /* Photography category panels */
+        .category-panels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .category-panel {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f8f8f8;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            border-radius: 8px;
+        }
+
+        .category-panel.fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Fixed overlay for better text visibility */
+        .category-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+
+        .category-info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 2;
+            background: transparent;
+            padding: 15px 0;
+        }
+
+        .category-title {
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+
+        .category-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Back button for category view */
+        .category-back {
+            font-family: 'IBM Plex Mono';
+            text-transform: uppercase;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .category-back:hover {
+            color: #2a2a2a;
+        }
+
+        .category-back.active {
+            display: flex;
+        }
+
+        /* Image grid for individual categories */
+        .images-grid {
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .images-grid.active {
+            display: grid;
+        }
+
+        .image-item {
+            width: 100%;
+            height: auto;
+            aspect-ratio: auto;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.15s ease;
+        }
+
+        .image-item:hover {
+            opacity: 0.8;
+        }
+
+        .image-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-item.fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            display: flex;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: #f8f8f8;
+            border-radius: 12px;
+            overflow: hidden;
+            transform: scale(0.8) translateY(40px);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .lightbox.active .lightbox-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .lightbox-image {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8e8e8;
+            min-height: 400px;
+            padding: 20px;
+        }
+
+        .lightbox-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lightbox-info {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 300px;
+            max-width: 400px;
+            background: #f8f8f8;
+        }
+
+        .lightbox-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            color: #2a2a2a;
+        }
+
+        .lightbox-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .lightbox-detail {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 8px;
+        }
+
+        .lightbox-detail:last-child {
+            border-bottom: none;
+        }
+
+        .lightbox-detail-label {
+            font-weight: 500;
+            color: #2a2a2a;
+        }
+
+        .lightbox-caption {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #2a2a2a;
+            margin-top: auto;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(248, 248, 248, 0.95);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #2a2a2a;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .lightbox-close:hover {
+            background: rgba(248, 248, 248, 1);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                top: 20px;
+                left: 20px;
+                font-size: 14px;
+            }
+
+            .nav-buttons {
+                top: 20px;
+                right: 20px;
+                gap: 20px;
+            }
+
+            .nav-button {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 60px 20px 20px;
+            }
+
+            .category-panels {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .category-panel {
+                height: 250px;
+            }
+
+            .images-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 4px;
+            }
+
+            .lightbox-content {
+                flex-direction: column;
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+
+            .lightbox-image {
+                min-height: 250px;
+            }
+
+            .lightbox-info {
+                padding: 20px;
+                min-width: auto;
+                max-width: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="name">केशव सेठी | Keshav Sethi</div>
+        
+        <div class="nav-buttons">
+            <a href="about.html" class="nav-button">About</a>
+            <a href="index.html" class="nav-button">Home</a>
+        </div>
+
+        <div class="section-description">
+            I take pictures of people, cars, and things.
+        </div>
+
+        <!-- Category back button -->
+        <div class="category-back" id="categoryBack">
+            <span>←</span>
+            <span>Back</span>
+        </div>
+
+        <!-- Category panels (main view) -->
+        <div class="category-panels" id="categoryPanels">
+            <div class="category-panel" data-category="people">
+                <div class="category-info">
+                    <div class="category-title">People</div>
+                    <div class="category-subtitle"></div>
+                </div>
+            </div>
+            <div class="category-panel" data-category="cars">
+                <div class="category-info">
+                    <div class="category-title">Cars</div>
+                    <div class="category-subtitle"></div>
+                </div>
+            </div>
+            <div class="category-panel" data-category="things">
+                <div class="category-info">
+                    <div class="category-title">Things</div>
+                    <div class="category-subtitle"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual category grids -->
+        <div class="images-grid" id="peopleGrid">
+            <div class="image-item" data-title="Portrait Session" data-location="Atlanta, GA" data-camera="Canon EOS R5" data-lens="85mm f/1.4" data-caption="A candid moment captured during a golden hour portrait session in Piedmont Park.">
+                <img src="images/people/people-1.jpg" alt="People 1">
+            </div>
+            <div class="image-item" data-title="Street Portrait" data-location="San Francisco, CA" data-camera="Canon EOS R5" data-lens="50mm f/1.8" data-caption="Spontaneous street portrait showcasing authentic human connection in the urban environment.">
+                <img src="images/people/people-2.jpg" alt="People 2">
+            </div>
+            <div class="image-item" data-title="Group Session" data-location="Atlanta, GA" data-camera="Canon EOS R5" data-lens="24-70mm f/2.8" data-caption="Dynamic group portrait emphasizing natural interactions and genuine expressions.">
+                <img src="images/people/people-3.jpg" alt="People 3">
+            </div>
+            <div class="image-item" data-title="Lifestyle Portrait" data-location="Bay Area, CA" data-camera="Canon EOS R5" data-lens="35mm f/1.4" data-caption="Environmental portrait that tells a story about the subject's daily life and personality.">
+                <img src="images/people/people-4.jpg" alt="People 4">
+            </div>
+        </div>
+
+        <div class="images-grid" id="carsGrid">
+            <div class="image-item" data-title="Classic Beauty" data-location="Marin County, CA" data-camera="Canon EOS R5" data-lens="24-70mm f/2.8" data-caption="Timeless automotive design captured against the California landscape.">
+                <img src="images/cars/cars-1.jpg" alt="Car 1">
+            </div>
+            <div class="image-item" data-title="Modern Lines" data-location="Atlanta, GA" data-camera="Canon EOS R5" data-lens="85mm f/1.4" data-caption="Contemporary automotive design showcasing clean lines and modern aesthetics.">
+                <img src="images/cars/cars-2.jpg" alt="Car 2">
+            </div>
+            <div class="image-item" data-title="Street Culture" data-location="San Francisco, CA" data-camera="Canon EOS R5" data-lens="50mm f/1.8" data-caption="Automotive culture in its natural urban habitat, capturing the intersection of car and city.">
+                <img src="images/cars/cars-3.jpg" alt="Car 3">
+            </div>
+        </div>
+
+        <div class="images-grid" id="thingsGrid">
+            <div class="image-item" data-title="Urban Geometry" data-location="San Francisco, CA" data-camera="Canon EOS R5" data-lens="24mm f/1.4" data-caption="Architectural lines creating abstract compositions in the urban landscape.">
+                <img src="images/things/things-1.jpg" alt="Things 1">
+            </div>
+            <div class="image-item" data-title="City Reflections" data-location="Atlanta, GA" data-camera="Canon EOS R5" data-lens="50mm f/1.8" data-caption="Glass and steel creating unexpected reflections and visual depth in downtown corridors.">
+                <img src="images/things/things-2.jpg" alt="Things 2">
+            </div>
+            <div class="image-item" data-title="Light and Shadow" data-location="Bay Area, CA" data-camera="Canon EOS R5" data-lens="35mm f/1.4" data-caption="Playing with natural light patterns as they interact with architectural elements.">
+                <img src="images/things/things-3.jpg" alt="Things 3">
+            </div>
+            <div class="image-item" data-title="Modern Skyline" data-location="Atlanta, GA" data-camera="Canon EOS R5" data-lens="85mm f/1.4" data-caption="Contemporary architecture defining the evolving city skyline at golden hour.">
+                <img src="images/things/things-4.jpg" alt="Things 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">×</button>
+        <div class="lightbox-content">
+            <div class="lightbox-image">
+                <img src="" alt="" id="lightboxImg">
+            </div>
+            <div class="lightbox-info">
+                <div class="lightbox-title" id="lightboxTitle"></div>
+                <div class="lightbox-details" id="lightboxDetails"></div>
+                <div class="lightbox-caption" id="lightboxCaption"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Photography category elements
+        const categoryPanels = document.getElementById('categoryPanels');
+        const categoryBack = document.getElementById('categoryBack');
+        const peopleGrid = document.getElementById('peopleGrid');
+        const carsGrid = document.getElementById('carsGrid');
+        const thingsGrid = document.getElementById('thingsGrid');
+
+        // Lightbox elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDetails = document.getElementById('lightboxDetails');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        let currentCategory = null;
+
+        // Category panel background images
+        const categoryImages = {
+            people: 'images/people/people-3-square.jpg',
+            cars: 'images/cars/cars-3-square.jpg',
+            things: 'images/things/things-3-square.jpg'
+        };
+
+        // Initialize category panel backgrounds
+        function initializeCategoryPanels() {
+            document.querySelectorAll('.category-panel').forEach(panel => {
+                const category = panel.getAttribute('data-category');
+                if (categoryImages[category]) {
+                    panel.style.backgroundImage = `url('${categoryImages[category]}')`;
+                }
+            });
+        }
+
+        // Call initialization
+        initializeCategoryPanels();
+
+        // Animate panels on load
+        setTimeout(() => {
+            document.querySelectorAll('.category-panel').forEach((panel, index) => {
+                panel.style.animationDelay = `${index * 0.2}s`;
+                panel.classList.add('fade-in');
+            });
+        }, 100);
+
+        // Category panel click handlers
+        document.querySelectorAll('.category-panel').forEach(panel => {
+            panel.addEventListener('click', () => {
+                const category = panel.getAttribute('data-category');
+                showCategoryGrid(category);
+            });
+        });
+
+        // Back button handler
+        categoryBack.addEventListener('click', () => {
+            showCategoryPanels();
+        });
+
+        // Image click handlers for lightbox
+        document.addEventListener('click', (e) => {
+            const imageItem = e.target.closest('.image-item');
+            if (imageItem) {
+                const img = imageItem.querySelector('img');
+                const title = imageItem.getAttribute('data-title');
+                const location = imageItem.getAttribute('data-location');
+                const camera = imageItem.getAttribute('data-camera');
+                const lens = imageItem.getAttribute('data-lens');
+                const caption = imageItem.getAttribute('data-caption');
+                
+                openLightbox(img.src, title, { location, camera, lens }, caption);
+            }
+        });
+
+        function showCategoryGrid(category) {
+            currentCategory = category;
+            
+            // Hide category panels
+            categoryPanels.style.display = 'none';
+            
+            // Show back button
+            categoryBack.classList.add('active');
+            
+            // Show appropriate grid
+            let targetGrid;
+            if (category === 'people') targetGrid = peopleGrid;
+            else if (category === 'cars') targetGrid = carsGrid;
+            else if (category === 'things') targetGrid = thingsGrid;
+            
+            if (targetGrid) {
+                targetGrid.classList.add('active');
+                
+                // Animate images
+                const images = targetGrid.querySelectorAll('.image-item');
+                images.forEach((img) => {
+                    img.classList.add('fade-in');
+                });
+            }
+        }
+
+        function showCategoryPanels() {
+            // Hide all grids
+            peopleGrid.classList.remove('active');
+            carsGrid.classList.remove('active');
+            thingsGrid.classList.remove('active');
+            
+            // Hide back button
+            categoryBack.classList.remove('active');
+            
+            // Show category panels
+            categoryPanels.style.display = 'grid';
+            
+            // Reset animations
+            document.querySelectorAll('.image-item').forEach(img => {
+                img.classList.remove('fade-in');
+                img.style.animationDelay = '';
+            });
+            
+            currentCategory = null;
+        }
+
+        // Lightbox functions
+        function openLightbox(imgSrc, title, details, caption) {
+            lightboxImg.src = imgSrc;
+            lightboxTitle.textContent = title;
+            lightboxCaption.textContent = caption;
+            
+            // Clear previous details
+            lightboxDetails.innerHTML = '';
+            
+            // Add details
+            if (details.location) {
+                const detail = document.createElement('div');
+                detail.className = 'lightbox-detail';
+                detail.innerHTML = `<span class="lightbox-detail-label">Location</span><span>${details.location}</span>`;
+                lightboxDetails.appendChild(detail);
+            }
+            
+            if (details.camera) {
+                const detail = document.createElement('div');
+                detail.className = 'lightbox-detail';
+                detail.innerHTML = `<span class="lightbox-detail-label">Camera</span><span>${details.camera}</span>`;
+                lightboxDetails.appendChild(detail);
+            }
+            
+            if (details.lens) {
+                const detail = document.createElement('div');
+                detail.className = 'lightbox-detail';
+                detail.innerHTML = `<span class="lightbox-detail-label">Lens</span><span>${details.lens}</span>`;
+                lightboxDetails.appendChild(detail);
+            }
+            
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        // Lightbox close handlers
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Escape key to close lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

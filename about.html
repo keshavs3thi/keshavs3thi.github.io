@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - MY WORK</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #fefefe;
+            color: #2a2a2a;
+        }
+
+        .container {
+            min-height: 100vh;
+            padding: 80px 40px 40px;
+        }
+
+        /* Name in top left */
+        .name {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            color: #2a2a2a;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 1000;
+        }
+
+        /* Navigation buttons in top right */
+        .nav-buttons {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            gap: 40px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            font-family: 'IBM Plex Mono';
+            font-size: 20px;
+            font-weight: 400;
+            color: #e91e63;
+            text-decoration: none;
+            letter-spacing: 3.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            transform: scale(1);
+            text-transform: uppercase;
+        }
+
+        .nav-button:hover {
+            opacity: 0.7;
+            transform: scale(1.05);
+        }
+
+        .page-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #2a2a2a;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #2a2a2a;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .about-text.fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .about-contact {
+            font-size: 14px;
+            color: #666;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .about-contact.fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .about-contact a {
+            color: #2a2a2a;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .about-contact a:hover {
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                top: 20px;
+                left: 20px;
+                font-size: 14px;
+            }
+
+            .nav-buttons {
+                top: 20px;
+                right: 20px;
+                gap: 20px;
+            }
+
+            .nav-button {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 60px 20px 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="name">केशव सेठी | Keshav Sethi</div>
+        
+        <div class="nav-buttons">
+            <a href="photography.html" class="nav-button">Photo</a>
+            <a href="design.html" class="nav-button">Design</a>
+            <a href="index.html" class="nav-button">Home</a>
+        </div>
+
+        <div class="page-title">About</div>
+        <div class="about-content">
+            <div class="about-text">
+                I'm a creative professional working at the intersection of photography and design. Currently studying design while building a diverse portfolio that spans editorial photography, brand identity, and digital experiences.
+            </div>
+            <div class="about-text">
+                I think my passion for capturing human emotions, and also designing products with human emotions in mind go hand in hand.
+            </div>
+            <div class="about-text">
+                Based between Atlanta, GA & The SF Bay Area, I collaborate with individuals, brands, and publications who value thoughtful, intentional creative work.
+            </div>
+            <div class="about-contact">
+                <p>Get in touch:</p>
+                <p><a href="mailto:me@keshavsethi.com">me@keshavsethi.com</a></p>
+                <p><a href="https://instagram.com/keshavision" target="_blank">@keshavision</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate about content on load
+        setTimeout(() => {
+            const elements = document.querySelectorAll('.about-text, .about-contact');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+                el.classList.add('fade-in');
+            });
+        }, 100);
+    </script>
+</body>
+</html>
