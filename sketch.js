@@ -22,7 +22,7 @@ let camZ = 0;
 let showHelp = false;
 let cHeld = false;
 let bHeld = false;
-let rotating = true;
+let rotating = false;
 let wiggle = true;
 
 let controls;
