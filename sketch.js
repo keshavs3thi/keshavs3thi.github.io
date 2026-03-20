@@ -28,8 +28,8 @@ let wiggle = true;
 let controls;
 let helpOverlay;
 let uiFont = null;
-let cols = 16;
-let rows = 10;
+let cols = 32;
+let rows = 18;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
