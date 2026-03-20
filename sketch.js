@@ -9,9 +9,9 @@ let currentShape = SHAPE_CUBE;
 let shapeSize = 28;
 let spacing = 40;
 
-let objectHue = 300;
+let objectHue = 130;
 let objectSat = 80;
-let bgHue = 275;
+let bgHue = 180;
 let bgSat = 80;
 let bgBri = 100;
 const cursorInfluence = 80;
