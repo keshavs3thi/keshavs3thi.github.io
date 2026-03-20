@@ -11,7 +11,7 @@ let spacing = 40;
 
 let objectHue = 130;
 let objectSat = 80;
-let bgHue = 180;
+let bgHue = 50;
 let bgSat = 80;
 let bgBri = 100;
 const cursorInfluence = 80;
