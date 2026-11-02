@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400">
+  <!-- Placeholder render: physical model A (sphere). Transparent padding; no baked shadow. -->
+  <defs>
+    <radialGradient id="ball" cx="0.36" cy="0.3" r="0.78">
+      <stop offset="0" stop-color="#ecc6ae"/>
+      <stop offset="0.5" stop-color="#c47c5d"/>
+      <stop offset="1" stop-color="#6e3b28"/>
+    </radialGradient>
+    <radialGradient id="spec" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="700" cy="700" r="470" fill="url(#ball)"/>
+  <ellipse cx="540" cy="500" rx="150" ry="100" fill="url(#spec)" transform="rotate(-35 540 500)"/>
+  <text x="700" y="1030" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="30" fill="#fff" fill-opacity="0.5">model-a</text>
+</svg>

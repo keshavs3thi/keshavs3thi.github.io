@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400">
+  <!-- Placeholder render: physical model B (rounded cube, 3/4 view). Transparent padding; no baked shadow. -->
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#dfe4ea"/>
+      <stop offset="1" stop-color="#b3bcc6"/>
+    </linearGradient>
+    <linearGradient id="left" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a3adb8"/>
+      <stop offset="1" stop-color="#7d8894"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7b8692"/>
+      <stop offset="1" stop-color="#56606b"/>
+    </linearGradient>
+  </defs>
+  <polygon points="700,340 1028,522 1028,898 700,1080 372,898 372,522" fill="#8b95a1"/>
+  <g transform="matrix(0.857 -0.476 0.857 0.476 340 500)"><rect width="420" height="420" rx="54" fill="url(#top)"/></g>
+  <g transform="matrix(0.857 0.476 0 1 340 500)"><rect width="420" height="420" rx="54" fill="url(#left)"/></g>
+  <g transform="matrix(0.857 -0.476 0 1 700 700)"><rect width="420" height="420" rx="54" fill="url(#right)"/></g>
+  <text x="700" y="1170" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="30" fill="#000" fill-opacity="0.35">model-b</text>
+</svg>

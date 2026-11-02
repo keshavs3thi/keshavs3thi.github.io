@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1200" width="1500" height="1200">
+  <!-- Placeholder render: camera. Transparent padding; no baked shadow. -->
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#5d5a56"/>
+      <stop offset="1" stop-color="#2b2927"/>
+    </linearGradient>
+    <linearGradient id="plate" x1="0" y1="0" x2="1" y2="0.4">
+      <stop offset="0" stop-color="#e2ded8"/>
+      <stop offset="1" stop-color="#9c9893"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="0.22" cy="0.12" r="0.75">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#bdb9b3"/>
+      <stop offset="1" stop-color="#5f5c58"/>
+    </linearGradient>
+    <radialGradient id="glass" cx="0.38" cy="0.32" r="0.8">
+      <stop offset="0" stop-color="#4a5868"/>
+      <stop offset="0.55" stop-color="#1a2029"/>
+      <stop offset="1" stop-color="#07090c"/>
+    </radialGradient>
+  </defs>
+  <rect x="560" y="290" width="380" height="140" rx="36" fill="url(#plate)"/>
+  <rect x="1010" y="350" width="130" height="60" rx="18" fill="url(#plate)"/>
+  <rect x="300" y="365" width="150" height="50" rx="16" fill="url(#plate)"/>
+  <rect x="250" y="400" width="1000" height="560" rx="72" fill="url(#body)"/>
+  <path d="M322 400h856a72 72 0 0 1 72 72v28H250v-28a72 72 0 0 1 72-72z" fill="url(#plate)"/>
+  <path d="M250 500h150v460h-78a72 72 0 0 1-72-72z" fill="#000" opacity="0.18"/>
+  <rect x="250" y="400" width="1000" height="560" rx="72" fill="url(#sheen)"/>
+  <circle cx="750" cy="700" r="235" fill="#1f1e1c"/>
+  <circle cx="750" cy="700" r="200" fill="url(#ring)"/>
+  <circle cx="750" cy="700" r="160" fill="#151413"/>
+  <circle cx="750" cy="700" r="118" fill="url(#glass)"/>
+  <ellipse cx="705" cy="650" rx="44" ry="26" fill="#fff" opacity="0.35" transform="rotate(-30 705 650)"/>
+  <circle cx="1140" cy="470" r="22" fill="#2b2927"/>
+  <text x="1210" y="925" text-anchor="end" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="30" fill="#fff" fill-opacity="0.45">camera</text>
+</svg>

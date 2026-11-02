@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1000" width="1500" height="1000">
+  <!-- Placeholder render: physical model C (capsule). Transparent padding; no baked shadow. -->
+  <defs>
+    <linearGradient id="cap" x1="0" y1="0" x2="0.15" y2="1">
+      <stop offset="0" stop-color="#e3e4d2"/>
+      <stop offset="0.55" stop-color="#b4b89c"/>
+      <stop offset="1" stop-color="#737860"/>
+    </linearGradient>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.3" stop-color="#fff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="250" y="330" width="1000" height="340" rx="170" fill="url(#cap)"/>
+  <rect x="320" y="372" width="860" height="56" rx="28" fill="url(#band)"/>
+  <path d="M760 332 v336" stroke="#5d624d" stroke-opacity="0.35" stroke-width="5"/>
+  <text x="750" y="740" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="30" fill="#000" fill-opacity="0.35">model-c</text>
+</svg>
